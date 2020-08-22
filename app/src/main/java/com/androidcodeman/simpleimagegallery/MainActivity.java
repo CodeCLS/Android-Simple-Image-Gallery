@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements itemClickListener
     public void onPicClicked(String pictureFolderPath,String folderName) {
         Intent move = new Intent(MainActivity.this,ImageDisplay.class);
         move.putExtra("folderPath",pictureFolderPath);
-        move.putExtra("folderName",folderName);
+        move.putExtra("folderName","Na");
 
         //move.putExtra("recyclerItemSize",getCardsOptimalWidth(4));
         startActivity(move);

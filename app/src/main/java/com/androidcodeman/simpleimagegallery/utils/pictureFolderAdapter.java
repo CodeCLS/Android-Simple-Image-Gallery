@@ -1,14 +1,20 @@
 package com.androidcodeman.simpleimagegallery.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.androidcodeman.simpleimagegallery.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,23 +25,54 @@ import java.util.ArrayList;
  *
  * An adapter for populating RecyclerView with items representing folders that contain images
  */
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class pictureFolderAdapter extends RecyclerView.Adapter<pictureFolderAdapter.FolderHolder>{
 
     private ArrayList<imageFolder> folders;
-    private Context folderContx;
+    private Context folderContext;
     private itemClickListener listenToClick;
+    String[] titles;
+
+    String[] sizes = {"181", "10828" , "66","39","497","5","112","3","1","1","1","1"};
+
+    Drawable[] drawables;
+
+
+
+
+
+
+
 
     /**
      *
      * @param folders An ArrayList of String that represents paths to folders on the external storage that contain pictures
-     * @param folderContx The Activity or fragment Context
+     * @param folderContext The Activity or fragment Context
      * @param listen interFace for communication between adapter and fragment or activity
      */
-    public pictureFolderAdapter(ArrayList<imageFolder> folders, Context folderContx, itemClickListener listen) {
+    public pictureFolderAdapter(ArrayList<imageFolder> folders, Context folderContext, itemClickListener listen) {
         this.folders = folders;
-        this.folderContx = folderContx;
+        this.folderContext = folderContext;
         this.listenToClick = listen;
+        this.titles = new String[]{folderContext.getString(R.string.Camera_string), folderContext.getString(R.string.Whatsapp_string),
+                folderContext.getString(R.string.Screenshots_string), folderContext.getString(R.string.Telegram_string),
+                folderContext.getString(R.string.Whatsapp_string), folderContext.getString(R.string.Download_string),
+                folderContext.getString(R.string.Whatsapp_string),folderContext.getString(R.string.Reddit_string),
+                folderContext.getString(R.string.O_string), folderContext.getString(R.string.OpenCamera_string),
+                folderContext.getString(R.string.Whatsapp_string), folderContext.getString(R.string.Wallpaper_string)
+
+
+        };
+        this.drawables = new Drawable[]{folderContext.getDrawable(R.drawable.keyboard), folderContext.getDrawable(R.drawable.dancer)
+                , folderContext.getDrawable(R.drawable.blocc), folderContext.getDrawable(R.drawable.phone),
+                folderContext.getDrawable(R.drawable.dancing), folderContext.getDrawable(R.drawable.orange),
+                folderContext.getDrawable(R.drawable.blurryy), folderContext.getDrawable(R.drawable.roschhaschana),
+                folderContext.getDrawable(R.drawable.bloccmedia), folderContext.getDrawable(R.drawable.telegram),
+                folderContext.getDrawable(R.drawable.noidea), folderContext.getDrawable(R.drawable.black)
+        };
     }
+
+
 
     @NonNull
     @Override
@@ -46,20 +83,30 @@ public class pictureFolderAdapter extends RecyclerView.Adapter<pictureFolderAdap
 
     }
 
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull FolderHolder holder, int position) {
         final imageFolder folder = folders.get(position);
 
-        Glide.with(folderContx)
-                .load(folder.getFirstPic())
+
+
+
+
+        Glide.with(folderContext)
+                .load(drawables[position])
                 .apply(new RequestOptions().centerCrop())
                 .into(holder.folderPic);
 
-        //setting the number of images
-        String text = ""+folder.getFolderName();
-        String folderSizeString=""+folder.getNumberOfPics()+" Media";
-        holder.folderSize.setText(folderSizeString);
-        holder.folderName.setText(text);
+
+
+
+        holder.folderSize.setText(sizes[position] + " "+ folderContext.getString(R.string.Media_string));
+        holder.folderName.setText(titles[position]);
+
+
+
+
 
         holder.folderPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,16 +117,19 @@ public class pictureFolderAdapter extends RecyclerView.Adapter<pictureFolderAdap
 
     }
 
+
+
+
+
     @Override
     public int getItemCount() {
-        return folders.size();
+        return 12;
     }
 
 
     public class FolderHolder extends RecyclerView.ViewHolder{
         ImageView folderPic;
         TextView folderName;
-        //set textview for foldersize
         TextView folderSize;
 
         CardView folderCard;

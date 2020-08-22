@@ -5,8 +5,16 @@
     <string name="empty">No Images on this device</string>
 
     <string name="photos_name">Photos</string>
-
-
+    <string name="Camera_string">Camera</string>
+    <string name="Whatsapp_string">Whatsapp</string>
+    <string name="Reddit_string">Reddit</string>
+    <string name="Download_string">Download</string>
+    <string name="Telegram_string">Telegram</string>
+    <string name="Screenshots_string">Screenshots</string>
+    <string name="O_string">O</string>
+    <string name="OpenCamera_string">OpenCamera</string>
+    <string name="Wallpaper_string">Wallpaper</string>
+    <string name="Media_string"> Media</string>
 
 
 </resources>
